@@ -185,6 +185,9 @@ export default {
             if (userState.name) {
                 userState.saveName()
             }
+
+            // fetch members
+            room.handleMembersUpdate()
         },
     },
     mounted() {
@@ -238,7 +241,7 @@ export default {
 
 
 
-                    <div id="screen-share-btn" class="screen-share" :class="{ blkock: !roomState.roomScreenShared }"
+                    <div id="screen-share-btn" class="screen-share" :class="{ block: !roomState.roomScreenShared }"
                         @click="screenShare"></div>
 
                     <div id="audio-btn" class="speaker" :class="{ muted: roomState.roomMuted }" @click="setMuted"></div>
