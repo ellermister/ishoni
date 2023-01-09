@@ -17,6 +17,7 @@ class ws extends EventEmitter {
         this.on('register', this.onRegister.bind(this))
         this.on('createRoom', this.createRoom.bind(this))
         this.on('message', this.message.bind(this))
+        this.on('open', this.hearbeat.bind(this))
     }
 
     /**
@@ -35,6 +36,16 @@ class ws extends EventEmitter {
                 v = c == 'x' ? r : (r & 0x3) | 0x8;
             return v.toString(16);
         });
+    }
+
+    hearbeatTimer = 0
+    hearbeat(){
+        this.hearbeatTimer && clearInterval(this.hearbeatTimer)
+        this.hearbeatTimer = setInterval(() => {
+            if(this.socket.readyState == WebSocket.OPEN){
+                this.socket.send('ping')
+            }
+        }, 1000*20);
     }
 
     connect() {

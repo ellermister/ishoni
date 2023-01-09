@@ -29,7 +29,7 @@ export default {
       if (/^ja/.test(navigator.language)) {
         useLang = 'ja'
       }
-      return this.lang[useLang][text] ? this.lang[useLang][text] : ''
+      return (this.lang[useLang] && this.lang[useLang][text]) ? this.lang[useLang][text] : text
     }
   }
 }
